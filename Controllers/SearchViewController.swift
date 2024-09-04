@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SearchViewController.swift
 //  MyNetflixApp
 //
 //  Created by User on 04.09.24.
@@ -7,13 +7,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
+        
+        view.backgroundColor = .systemBackground
 
+    }
+    
+
+   
 
 }
-
