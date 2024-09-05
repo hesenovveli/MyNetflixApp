@@ -70,12 +70,10 @@ class HeroHeaderUiView: UIView {
             
         ]
         
-        let downloadButtonConstraints = [
-        
+        let downloadButtonConstraints = [        
             downloadButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -60),
             downloadButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50),
             downloadButton.widthAnchor.constraint(equalToConstant: 120)
-        
         ]
         
         
