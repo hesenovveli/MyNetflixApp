@@ -15,8 +15,8 @@ class HeroHeaderUiView: UIView {
         button.setTitle("Download", for: .normal)
         button.layer.borderColor = UIColor.systemBackground.cgColor
         button.layer.borderWidth = 1
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 5
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
