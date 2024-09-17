@@ -50,7 +50,7 @@ class HeroHeaderUiView: UIView {
         gradientLayer.frame = bounds
         layer.addSublayer(gradientLayer)
     }
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(heroImageView)
@@ -67,10 +67,10 @@ class HeroHeaderUiView: UIView {
             playButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60),
             playButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50),
             playButton.widthAnchor.constraint(equalToConstant: 120)
-           
+            
         ]
         
-        let downloadButtonConstraints = [        
+        let downloadButtonConstraints = [
             downloadButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -60),
             downloadButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50),
             downloadButton.widthAnchor.constraint(equalToConstant: 120)
@@ -82,12 +82,21 @@ class HeroHeaderUiView: UIView {
     }
     
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        heroImageView.frame = bounds
+    public func configure(with model:TitleViewModel) {
+        guard let url = URL(string: "https://image.tmdb.org/t/p/w500\( model.posterURL)") else {
+            return
+        }
+        
+        heroImageView.sd_setImage(with: url, completed: nil)
+        
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError()
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            heroImageView.frame = bounds
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError()
+        }
     }
-}
+

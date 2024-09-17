@@ -37,6 +37,7 @@ class SearchViewController: UIViewController {
         navigationItem.searchController = searchController
         
         fetchDiscoverMovies()
+        searchController.searchResultsUpdater = self
 
     }
     
@@ -77,5 +78,40 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         140
+    }
+}
+extension SearchViewController: UISearchResultsUpdating, SearchResultsViewControllerDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        
+        guard let query = searchBar.text,
+              !query.trimmingCharacters(in: .whitespaces).isEmpty,
+              query.trimmingCharacters(in: .whitespaces).count >= 3,
+              let resultsController = searchController.searchResultsController as? SearchResultsViewController else {
+            return
+        }
+        
+        resultsController.delegate = self
+        
+        APICaller.shared.serch(with: query) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case.success(let titles):
+                    resultsController.titles = titles
+                    resultsController.serachResultsColletionView.reloadData()
+                case.failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func searchResultsViewControllerDidTapItem(_ viewModel: TitlePreviewViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            let vc = TitlePreviewViewController()
+            vc.configure(with: viewModel)
+            self?.navigationController?.pushViewController(vc, animated: true)
+            
+        }
     }
 }
